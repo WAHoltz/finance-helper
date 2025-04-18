@@ -1,12 +1,11 @@
 'use client'
 import { UserAuth } from "@/app/context/AuthContext";
-import { handleSignOut } from "@/app/utils/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { user } = UserAuth()
+  const { user, handleSignOut } = UserAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -15,9 +14,12 @@ export default function Home() {
     }
   }, [])
 
+  if (!user) return null
+
   return (
     <>
-      <h1>Home</h1>
+      <h1 className="p-4 text-cyan-800">Home</h1>
+      <h2>Welcome, {user.displayName}</h2>
       <Link href="/" onClick={handleSignOut}>Log out</Link>
     </>
   )

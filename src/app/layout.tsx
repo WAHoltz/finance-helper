@@ -1,5 +1,6 @@
 'use client';
-import { AuthContextProvider } from "./context/AuthContext";
+import { AuthContextProvider } from './context/AuthContext';
+import './globals.css';
 
 export default function RootLayout({
   children,
@@ -9,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <AuthContextProvider>
-        <body>{children}</body>
+        <body className='tw:bg-gradient-to-tr tw:bg-gray-700'>{children}</body>
       </AuthContextProvider>
     </html>
   );
