@@ -1,12 +1,10 @@
 'use client'
-import { createContext, useContext, useState, useEffect } from "react";
-import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
 import { auth } from "../firebase";
 
-const AuthContext = createContext()
-
-export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
+export const AuthContext = () => {
+  const [user, setUser] = useState<User | null>(null)
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider()
@@ -18,19 +16,18 @@ export const AuthContextProvider = ({ children }) => {
   }
 
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     try {
-      googleSignIn()
+      await googleSignIn()
 
     } catch (error) {
       console.log(error)
     }
   }
 
-  const handleSignOut = () => {
-    const { logOut } = UserAuth()
+  const handleSignOut = async () => {
     try {
-      logOut()
+      await logOut()
     } catch (error) {
       console.log(error)
     }
@@ -42,6 +39,11 @@ export const AuthContextProvider = ({ children }) => {
     })
     return () => unsubscribe()
   }, [user])
+
+  return createContext({ user, handleSignIn, handleSignOut })
+}
+
+export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ user, handleSignIn, handleSignOut }}>{children}</AuthContext.Provider>
