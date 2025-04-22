@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 export default function Page() {
   const { user, handleSignIn } = UserAuth() as ProviderValue;
   const router = useRouter()
-  console.log(user)
+
   useEffect(() => {
     if (user) return router.push('/home')
-  }, [user])
+  }, [user, router])
 
   return (
     <div className='tw:flex tw:justify-center tw:align-middle tw:mt-48'>

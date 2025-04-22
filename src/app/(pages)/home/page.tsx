@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!user) return router.push('/')
-  }, [user])
+  }, [user, router])
 
   return (
     <div className="tw:flex tw:justify-center tw:align-middle tw:mt-48">
