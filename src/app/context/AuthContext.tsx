@@ -26,18 +26,18 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   }
 
 
-  const handleSignIn = async () => {
+  const handleSignIn = () => {
     try {
-      await googleSignIn()
+      googleSignIn()
 
     } catch (error) {
       console.log(error)
     }
   }
 
-  const handleSignOut = async () => {
+  const handleSignOut = () => {
     try {
-      await logOut()
+      logOut()
     } catch (error) {
       console.log(error)
     }
@@ -50,8 +50,11 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return () => unsubscribe()
   }, [user])
   return (
-    <AuthContext.Provider value={{ user, handleSignIn, handleSignOut }
-    }>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ user, handleSignIn, handleSignOut }}
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
 
