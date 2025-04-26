@@ -9,9 +9,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <AuthContextProvider>
-        <body className='tw:bg-gradient-to-tr tw:bg-gray-700'>
+        <body className="tw:bg-gradient-to-tr tw:bg-gray-700">
           <Header />
           {children}
         </body>
