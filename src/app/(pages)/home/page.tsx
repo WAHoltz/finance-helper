@@ -1,6 +1,5 @@
 'use client';
 import { ProviderValue, UserAuth } from '@/app/context/AuthContext';
-import { AddUser } from '@/app/db-utils';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -10,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!user) return router.push('/');
-    AddUser(user);
+    return;
   }, [user, router]);
 
   return <></>;

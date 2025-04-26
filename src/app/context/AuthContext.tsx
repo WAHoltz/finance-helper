@@ -6,9 +6,10 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   User,
+  getAuth,
 } from 'firebase/auth';
-import { auth } from '../firebase';
-import { AddUser } from '../db-utils';
+import { auth, db } from '../firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 export interface ProviderValue {
   user: User | null;
@@ -16,9 +17,9 @@ export interface ProviderValue {
   handleSignOut: () => void;
 }
 
-export type ContextValue = ProviderValue | undefined;
+export type ContextValue = ProviderValue | null;
 
-const AuthContext = createContext<ContextValue>(undefined);
+const AuthContext = createContext<ContextValue>(null);
 
 export const AuthContextProvider = ({
   children,
@@ -53,11 +54,31 @@ export const AuthContextProvider = ({
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+
+      const auth = getAuth();
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const userRef = doc(db, 'users', user?.uid);
+          const userDoc = await getDoc(userRef);
+          if (userDoc.exists()) {
+            return;
+          }
+          console.log({ ...user });
+          setDoc(userRef, {
+            uid: user.uid,
+            name: user.displayName,
+            photoUrl: user.photoURL,
+          });
+          return;
+        }
+        return;
+      });
     });
     return () => unsubscribe();
   }, [user]);
+
   return (
     <AuthContext.Provider value={{ user, handleSignIn, handleSignOut }}>
       {children}
