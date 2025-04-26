@@ -1,3 +1,3 @@
-export default AddForm() {
-
-  }
+export default function AddForm() {
+  return <></>;
+}
