@@ -65,7 +65,6 @@ export const AuthContextProvider = ({
           if (userDoc.exists()) {
             return;
           }
-          console.log({ ...user });
           setDoc(userRef, {
             uid: user.uid,
             name: user.displayName,
