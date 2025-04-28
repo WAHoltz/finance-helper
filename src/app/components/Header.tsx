@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { ProviderValue, UserAuth } from "../context/AuthContext";
-import { AuthButton } from "./AuthButton";
+import Link from 'next/link';
+import { ProviderValue, UserAuth } from '../context/AuthContext';
+import { AuthButton } from './AuthButton';
 
 export function Header() {
   const { user, handleSignIn, handleSignOut } = UserAuth() as ProviderValue;

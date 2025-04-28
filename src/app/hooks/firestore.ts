@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-import { ProviderValue, UserAuth } from "../context/AuthContext";
+import { useEffect, useState } from 'react';
+import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
+import { ProviderValue, UserAuth } from '../context/AuthContext';
 
 export type Expense = {
   name: string;
@@ -11,7 +11,7 @@ export type Expense = {
 };
 
 export const useAddExpense = async (formData: Expense, userId: string) => {
-  const expenseRef = collection(db, "users", userId, "expenses");
+  const expenseRef = collection(db, 'users', userId, 'expenses');
 
   await addDoc(expenseRef, {
     ...formData,
@@ -29,13 +29,13 @@ export const useGetExpenses = () => {
       setIsLoading(true);
 
       if (user) {
-        const expensesRef = collection(db, "users", user?.uid, "expenses");
+        const expensesRef = collection(db, 'users', user?.uid, 'expenses');
         const expensesSnapshot = await getDocs(expensesRef);
 
         if (expensesSnapshot.size) {
           const data: Expense[] = [];
           expensesSnapshot.docs.forEach((doc) =>
-            data.push({ ...doc.data(), docId: doc.id } as Expense),
+            data.push({ ...doc.data(), docId: doc.id } as Expense)
           );
           setData(data);
           setIsLoading(false);
@@ -45,7 +45,7 @@ export const useGetExpenses = () => {
       } else {
         setIsLoading(false);
         setIsError(true);
-        setData(["No userId"]);
+        setData(['No userId']);
       }
     })();
   }, [user]);
@@ -57,14 +57,14 @@ export const useGetExpense = (expenseId: string) => {
   const { user } = UserAuth() as ProviderValue;
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [data, setData] = useState<Expense | string>("");
+  const [data, setData] = useState<Expense | string>('');
 
   useEffect(() => {
     (async () => {
       setIsLoading(true);
 
       if (user) {
-        const expenseRef = doc(db, "users", user?.uid, "expenses", expenseId);
+        const expenseRef = doc(db, 'users', user?.uid, 'expenses', expenseId);
         const expenseSnapshot = await getDoc(expenseRef);
 
         if (expenseSnapshot.exists()) {
@@ -77,7 +77,7 @@ export const useGetExpense = (expenseId: string) => {
       } else {
         setIsLoading(false);
         setIsError(true);
-        setData("No userId");
+        setData('No userId');
       }
     })();
   }, [user, expenseId]);
