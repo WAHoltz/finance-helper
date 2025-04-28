@@ -9,7 +9,6 @@ export default function Home() {
 
   useEffect(() => {
     if (!user) return router.push("/");
-    return;
   }, [user, router]);
 
   return <></>;
