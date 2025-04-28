@@ -7,10 +7,10 @@ export type Expense = {
   name: string;
   amount: number;
   required: boolean;
-  docId: string;
+  docId?: string;
 };
 
-export const useAddExpense = async (formData: Expense, userId: string) => {
+export const addExpense = async (formData: Expense, userId: string) => {
   const expenseRef = collection(db, 'users', userId, 'expenses');
 
   await addDoc(expenseRef, {
