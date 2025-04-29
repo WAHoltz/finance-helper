@@ -22,7 +22,7 @@ export const useGetExpenses = () => {
   const { user } = UserAuth() as ProviderValue;
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [data, setData] = useState<Expense[] | string[]>([]);
+  const [data, setData] = useState<Expense[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -45,7 +45,6 @@ export const useGetExpenses = () => {
       } else {
         setIsLoading(false);
         setIsError(true);
-        setData(['No userId']);
       }
     })();
   }, [user]);
@@ -57,7 +56,7 @@ export const useGetExpense = (expenseId: string) => {
   const { user } = UserAuth() as ProviderValue;
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [data, setData] = useState<Expense | string>('');
+  const [data, setData] = useState<Expense>();
 
   useEffect(() => {
     (async () => {
@@ -77,7 +76,6 @@ export const useGetExpense = (expenseId: string) => {
       } else {
         setIsLoading(false);
         setIsError(true);
-        setData('No userId');
       }
     })();
   }, [user, expenseId]);
