@@ -20,7 +20,6 @@ export default function AddForm({ userId }: { userId: string }) {
     } else {
       setRequiredExpense(true);
     }
-    console.log(requiredExpense);
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
