@@ -1,6 +1,5 @@
 import { FormEventHandler, useState } from 'react';
 import { addExpense } from '../hooks/firestore';
-import { User } from 'firebase/auth';
 
 export default function AddForm({ userId }: { userId: string }) {
   const [expenseName, setExpenseName] = useState('Expense');
@@ -34,34 +33,61 @@ export default function AddForm({ userId }: { userId: string }) {
       },
       userId
     );
+    setExpenseName('Expense');
+    setExpenseAmount(0.0);
+    setRequiredExpense(true);
   };
 
   return (
-    <div className="tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col">
-      <h3>Add Expense</h3>
-      <form onSubmit={handleSubmit} className="tw:grid-cols-3 tw:gap-1">
-        <label htmlFor="expenseName">Expense Name</label>
-        <input
-          type="text"
-          name="expenseName"
-          value={expenseName}
-          onChange={handleNameChange}
-        />
-        <label htmlFor="expenseAmount">Expense Amount</label>
-        <input
-          type="number"
-          name="expenseAmount"
-          value={expenseAmount}
-          onChange={handleAmountChange}
-        />
-        <label htmlFor="Required?">Required?</label>
-        <input
-          name="Required?"
-          type="checkbox"
-          checked={requiredExpense}
-          onChange={handleRequiredChange}
-        />
-        <input type="submit" value="Submit" />
+    <div className="tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center">
+      <h3 className="tw:font-extrabold">Add Expense</h3>
+      <form
+        onSubmit={handleSubmit}
+        className="tw:flex tw:flex-col tw:items-center"
+      >
+        <div>
+          <label htmlFor="expenseName" className="tw:font-bold">
+            Expense Name
+          </label>
+          <input
+            className="tw:ml-4 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
+            type="text"
+            name="expenseName"
+            value={expenseName}
+            onChange={handleNameChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="expenseAmount" className="tw:font-bold">
+            Expense Amount
+          </label>
+          <input
+            className="tw:ml-4 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
+            type="number"
+            name="expenseAmount"
+            value={expenseAmount}
+            onChange={handleAmountChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="Required?" className="tw:font-bold">
+            Required?
+          </label>
+          <input
+            className="tw:ml-4"
+            name="Required?"
+            type="checkbox"
+            checked={requiredExpense}
+            onChange={handleRequiredChange}
+          />
+        </div>
+        <button
+          type="submit"
+          value="Submit"
+          className="tw:border-black tw:border-2 tw:bg-gray-400 tw:px-2 tw:cursor-pointer"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
