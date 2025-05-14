@@ -49,14 +49,14 @@ export default function AddForm({ userId }: { userId: string }) {
             Expense Name
           </label>
           <input
-            className="tw:ml-4 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
+            className="tw:ml-8 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
             type="text"
             name="expenseName"
             value={expenseName}
             onChange={handleNameChange}
           />
         </div>
-        <div>
+        <div className="tw:mt-2">
           <label htmlFor="expenseAmount" className="tw:font-bold">
             Expense Amount
           </label>
