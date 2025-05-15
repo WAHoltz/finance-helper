@@ -1,5 +1,4 @@
 'use client';
-import AddForm from '@/app/components/AddForm';
 import { ProviderValue, UserAuth } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -17,8 +16,8 @@ export default function Home() {
   }
 
   return (
-    <>
-      <AddForm userId={user.uid} />
-    </>
+    <div className="tw:text-white tw:font-bold tw:text-5xl tw:flex tw:justify-center tw:items-center tw:mt-32">
+      <h1>Home</h1>
+    </div>
   );
 }

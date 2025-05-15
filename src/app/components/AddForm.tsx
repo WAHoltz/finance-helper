@@ -1,9 +1,16 @@
 import { FormEventHandler, useState } from 'react';
 import { addExpense } from '../hooks/firestore';
+import { twMerge } from 'tailwind-merge';
 
-export default function AddForm({ userId }: { userId: string }) {
+export default function AddForm({
+  userId,
+  className,
+}: {
+  userId: string;
+  className?: string;
+}) {
   const [expenseName, setExpenseName] = useState('Expense');
-  const [expenseAmount, setExpenseAmount] = useState(0.0);
+  const [expenseAmount, setExpenseAmount] = useState(0);
   const [requiredExpense, setRequiredExpense] = useState(true);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +31,17 @@ export default function AddForm({ userId }: { userId: string }) {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+
+    if (expenseName === 'Expense') {
+      alert('Must choose a different expense name!');
+      return;
+    }
+
+    if (expenseAmount === 0) {
+      alert('Must choose a different expense amount!');
+      return;
+    }
+
     addExpense(
       {
         name: expenseName,
@@ -32,13 +50,19 @@ export default function AddForm({ userId }: { userId: string }) {
       },
       userId
     );
+    alert('Expense added!');
     setExpenseName('Expense');
-    setExpenseAmount(0.0);
+    setExpenseAmount(0);
     setRequiredExpense(true);
   };
 
   return (
-    <div className="tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center">
+    <div
+      className={twMerge(
+        'tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center',
+        className
+      )}
+    >
       <h3 className="tw:font-extrabold">Add Expense</h3>
       <form
         onSubmit={handleSubmit}
@@ -83,7 +107,7 @@ export default function AddForm({ userId }: { userId: string }) {
         <button
           type="submit"
           value="Submit"
-          className="tw:border-black tw:border-2 tw:bg-gray-400 tw:px-2 tw:cursor-pointer"
+          className="tw:border-black tw:border-x-2 tw:border-t-2 tw:bg-gray-400 tw:px-2 tw:cursor-pointer"
         >
           Submit
         </button>
