@@ -1,4 +1,5 @@
 'use client';
+import FunMoney from '@/app/components/FunMoney';
 import { ProviderValue, UserAuth } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -9,8 +10,15 @@ export default function Home() {
 
   useEffect(() => {
     if (!user) return router.push('/');
-    return;
   }, [user, router]);
 
-  return <></>;
+  if (!user) {
+    return;
+  }
+
+  return (
+    <div className="tw:flex tw:justify-center tw:items-center tw:mt-16">
+      <FunMoney />
+    </div>
+  );
 }
