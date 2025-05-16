@@ -17,12 +17,19 @@ export type Expense = {
   docId?: string;
 };
 
+export type UserRef = {
+  uid: string;
+  name: string;
+  photoUrl: string;
+  email: string;
+  funMoney: number;
+};
+
 export const addExpense = async (formData: Expense, userId: string) => {
   const expenseRef = collection(db, 'users', userId, 'expenses');
 
   await addDoc(expenseRef, {
     ...formData,
-    timestamp: Date.now(),
   });
 };
 
@@ -86,4 +93,32 @@ export const useGetExpense = (expenseId: string) => {
   }, [user, expenseId]);
 
   return { isLoading, isError, data };
+};
+
+export const useGetUser = (userId: string | null) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<UserRef>();
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+
+      if (!userId) return;
+
+      const usersRef = doc(db, 'users', userId);
+      const unsubscribe = onSnapshot(usersRef, (snapshot) => {
+        if (snapshot.exists()) {
+          setData({
+            ...snapshot.data(),
+          } as UserRef);
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+        }
+      });
+      return () => unsubscribe();
+    })();
+  }, [userId]);
+
+  return { isLoading, data };
 };

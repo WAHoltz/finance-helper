@@ -70,6 +70,7 @@ export const AuthContextProvider = ({
             name: user.displayName,
             photoUrl: user.photoURL,
             email: user.email,
+            funMoney: 0,
           });
           return;
         }

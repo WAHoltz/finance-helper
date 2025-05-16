@@ -1,5 +1,6 @@
 'use client';
 import AddForm from '@/app/components/AddForm';
+import TotalExpenses from '@/app/components/TotalExpenses';
 import ListExpenses from '@/app/components/ListExpenses';
 import { ProviderValue, UserAuth } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -19,6 +20,7 @@ export default function Expenses() {
   return (
     <div className="tw:flex tw:items-center tw:justify-center tw:mt-2 tw:flex-col tw:space-y-3">
       <AddForm userId={user.uid} />
+      <TotalExpenses />
       <ListExpenses />
     </div>
   );

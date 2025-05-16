@@ -15,7 +15,7 @@ export default function ListExpenses({ className }: { className?: string }) {
       )}
     >
       <h3 className="tw:font-extrabold tw:border-b-2 tw:border-gray-800 tw:w-full tw:text-center">
-        Expenses
+        All Expenses
       </h3>
       {data.length ? (
         data

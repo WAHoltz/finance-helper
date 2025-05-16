@@ -47,6 +47,7 @@ export default function AddForm({
         name: expenseName,
         amount: expenseAmount,
         required: requiredExpense,
+        timestamp: Date.now(),
       },
       userId
     );
