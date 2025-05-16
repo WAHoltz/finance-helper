@@ -5,7 +5,7 @@ import { Expense, useGetExpenses, useGetUser } from '../hooks/firestore';
 import { MouseEventHandler, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export default function FunMoney(className?: string) {
+export default function FunMoney({ className }: { className?: string }) {
   const { user } = UserAuth() as ProviderValue;
   const { isLoading: isUserLoading, data: userData } = useGetUser(
     user ? user.uid : null

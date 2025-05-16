@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import { Expense, useGetExpenses } from '../hooks/firestore';
 
-export default function TotalExpenses(className?: string) {
+export default function TotalExpenses({ className }: { className?: string }) {
   const { isLoading: isExpensesLoading, data: expensesData } = useGetExpenses();
 
   if (isExpensesLoading) return;
