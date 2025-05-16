@@ -1,12 +1,12 @@
 import { twMerge } from 'tailwind-merge';
-import { Expense, useGetExpenses } from '../hooks/firestore';
+import { Cashflow, useGetExpenses } from '../hooks/firestore';
 
 export default function TotalExpenses({ className }: { className?: string }) {
   const { isLoading: isExpensesLoading, data: expensesData } = useGetExpenses();
 
   if (isExpensesLoading) return;
 
-  function getAverageRequiredExpenses(expenses: Expense[]) {
+  function getTotalRequiredExpenses(expenses: Cashflow[]) {
     let totalAmount = 0;
     const now = Date.now();
     const currentDate = new Date(now);
@@ -20,10 +20,10 @@ export default function TotalExpenses({ className }: { className?: string }) {
       .map((expense) => (totalAmount += expense.amount));
 
     if (totalAmount === 0) return 0;
-    return totalAmount;
+    return Number.parseFloat(totalAmount.toString()).toFixed(2);
   }
 
-  function getAverageNonrequiredExpenses(expenses: Expense[]) {
+  function getTotalNonrequiredExpenses(expenses: Cashflow[]) {
     let totalAmount = 0;
     const now = Date.now();
     const currentDate = new Date(now);
@@ -37,7 +37,7 @@ export default function TotalExpenses({ className }: { className?: string }) {
       .map((expense) => (totalAmount += expense.amount));
 
     if (totalAmount === 0) return 0;
-    return totalAmount;
+    return Number.parseFloat(totalAmount.toString()).toFixed(2);
   }
 
   return (
@@ -55,11 +55,11 @@ export default function TotalExpenses({ className }: { className?: string }) {
           <h4 className="tw:font-bold tw:text-nowrap tw:text-sm">
             Required Expenses this Month
           </h4>
-          <p>${getAverageRequiredExpenses(expensesData)}</p>
+          <p>${getTotalRequiredExpenses(expensesData)}</p>
         </div>
         <div className="tw:flex tw:flex-col tw:items-center tw:justify-center tw:col-span-1 tw:text-sm tw:text-center">
           <h4 className="tw:font-bold">Non-Required Expenses this Month</h4>
-          <p>${getAverageNonrequiredExpenses(expensesData)}</p>
+          <p>${getTotalNonrequiredExpenses(expensesData)}</p>
         </div>
       </div>
     </div>

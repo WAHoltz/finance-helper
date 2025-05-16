@@ -1,7 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { ProviderValue, UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import { Expense, useGetExpenses, useGetUser } from '../hooks/firestore';
+import { Cashflow, useGetExpenses, useGetUser } from '../hooks/firestore';
 import { MouseEventHandler, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -19,7 +19,7 @@ export default function FunMoney({ className }: { className?: string }) {
 
   function getCurrentRemainingBudget(
     funMoney: number | undefined,
-    expenses: Expense[]
+    expenses: Cashflow[]
   ) {
     let remainingFunMoney = funMoney || 0;
     const now = Date.now();

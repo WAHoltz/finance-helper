@@ -17,13 +17,19 @@ export function Header() {
               Hello, {user?.displayName}
             </div>
             <Link
-              className="tw:flex tw:justify-center tw:text-md tw:m-4 tw:w-24 tw:bg-gray-500 tw:rounded-md tw:px-4 tw:py-2 tw:text-white"
+              className="tw:flex tw:justify-center tw:text-md tw:ml-4 tw:w-24 tw:bg-gray-500 tw:px-4 tw:py-2 tw:text-white"
+              href="/incomes"
+            >
+              Incomes
+            </Link>
+            <Link
+              className="tw:flex tw:justify-center tw:text-md tw:border-gray-800 tw:border-x-2 tw:w-24 tw:bg-gray-500 tw:px-4 tw:py-2 tw:text-white"
               href="/expenses"
             >
               Expenses
             </Link>
             <Link
-              className="tw:flex tw:justify-center tw:text-md tw:m-4 tw:w-24 tw:bg-gray-500 tw:rounded-md tw:px-4 tw:py-2 tw:text-white"
+              className="tw:flex tw:justify-center tw:text-md tw:w-24 tw:bg-gray-500 tw:px-4 tw:py-2 tw:text-white"
               href="/home"
             >
               Home
