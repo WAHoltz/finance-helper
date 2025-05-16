@@ -9,8 +9,8 @@ export default function AddForm({
   userId: string;
   className?: string;
 }) {
-  const [expenseName, setExpenseName] = useState('Expense');
-  const [expenseAmount, setExpenseAmount] = useState(0);
+  const [expenseName, setExpenseName] = useState('');
+  const [expenseAmount, setExpenseAmount] = useState(0.0);
   const [requiredExpense, setRequiredExpense] = useState(true);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,12 +32,12 @@ export default function AddForm({
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    if (expenseName === 'Expense') {
+    if (expenseName === '') {
       alert('Must choose a different expense name!');
       return;
     }
 
-    if (expenseAmount === 0) {
+    if (expenseAmount === 0.0) {
       alert('Must choose a different expense amount!');
       return;
     }
@@ -50,9 +50,8 @@ export default function AddForm({
       },
       userId
     );
-    alert('Expense added!');
-    setExpenseName('Expense');
-    setExpenseAmount(0);
+    setExpenseName('');
+    setExpenseAmount(0.0);
     setRequiredExpense(true);
   };
 
@@ -76,6 +75,7 @@ export default function AddForm({
             className="tw:ml-8 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
             type="text"
             name="expenseName"
+            placeholder="Expense"
             value={expenseName}
             onChange={handleNameChange}
           />
@@ -86,6 +86,7 @@ export default function AddForm({
           </label>
           <input
             className="tw:ml-4 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
+            placeholder="0.00"
             type="number"
             name="expenseAmount"
             value={expenseAmount}

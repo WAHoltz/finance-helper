@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+} from 'firebase/firestore';
 import { db } from '../firebase';
 import { ProviderValue, UserAuth } from '../context/AuthContext';
 
@@ -7,6 +13,7 @@ export type Expense = {
   name: string;
   amount: number;
   required: boolean;
+  timestamp: number;
   docId?: string;
 };
 
@@ -15,41 +22,39 @@ export const addExpense = async (formData: Expense, userId: string) => {
 
   await addDoc(expenseRef, {
     ...formData,
+    timestamp: Date.now(),
   });
 };
 
 export const useGetExpenses = () => {
   const { user } = UserAuth() as ProviderValue;
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [data, setData] = useState<Expense[]>([]);
 
   useEffect(() => {
     (async () => {
       setIsLoading(true);
+      if (!user) return;
 
-      if (user) {
-        const expensesRef = collection(db, 'users', user?.uid, 'expenses');
-        const expensesSnapshot = await getDocs(expensesRef);
-
-        if (expensesSnapshot.size) {
+      const expensesRef = collection(db, 'users', user?.uid, 'expenses');
+      const unsubscribe = onSnapshot(expensesRef, (snapshot) => {
+        if (snapshot.size) {
           const data: Expense[] = [];
-          expensesSnapshot.docs.forEach((doc) =>
+          snapshot.docs.forEach((doc) =>
             data.push({ ...doc.data(), docId: doc.id } as Expense)
           );
           setData(data);
           setIsLoading(false);
         } else {
+          setData([]);
           setIsLoading(false);
         }
-      } else {
-        setIsLoading(false);
-        setIsError(true);
-      }
+      });
+      return () => unsubscribe();
     })();
   }, [user]);
 
-  return { isLoading, isError, data };
+  return { isLoading, data };
 };
 
 export const useGetExpense = (expenseId: string) => {

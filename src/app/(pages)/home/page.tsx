@@ -16,7 +16,7 @@ export default function Home() {
   }
 
   return (
-    <div className="tw:text-white tw:font-bold tw:text-5xl tw:flex tw:justify-center tw:items-center tw:mt-32">
+    <div className="tw:text-white tw:font-bold tw:text-5xl tw:flex tw:justify-center tw:items-center tw:mt-16">
       <h1>Home</h1>
     </div>
   );

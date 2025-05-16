@@ -3,9 +3,9 @@ import { useGetExpenses } from '../hooks/firestore';
 import Expense from './Expense';
 
 export default function ListExpenses({ className }: { className?: string }) {
-  const { isLoading, isError, data } = useGetExpenses();
+  const { isLoading, data } = useGetExpenses();
 
-  if (isLoading || isError) return null;
+  if (isLoading) return null;
 
   return (
     <div
@@ -17,10 +17,16 @@ export default function ListExpenses({ className }: { className?: string }) {
       <h3 className="tw:font-extrabold tw:border-b-2 tw:border-gray-800 tw:w-full tw:text-center">
         Expenses
       </h3>
-      {data.map((expense) => {
-        if (!expense?.docId) return;
-        return <Expense key={expense.docId} expenseId={expense.docId} />;
-      })}
+      {data.length ? (
+        data
+          .sort((expenseA, expenseB) => expenseA.timestamp - expenseB.timestamp)
+          .map((expense) => {
+            if (!expense?.docId) return;
+            return <Expense key={expense.docId} expenseId={expense.docId} />;
+          })
+      ) : (
+        <p>No Expenses</p>
+      )}
     </div>
   );
 }
