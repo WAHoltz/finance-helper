@@ -1,5 +1,6 @@
 'use client';
 import FunMoney from '@/app/components/FunMoney';
+import SavingGoal from '@/app/components/SavingGoal';
 import TotalCashflow from '@/app/components/TotalCashflow';
 import { ProviderValue, UserAuth } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -21,6 +22,7 @@ export default function Home() {
     <div className="tw:flex tw:items-center tw:justify-center tw:mt-2 tw:flex-col tw:space-y-3">
       <TotalCashflow />
       <FunMoney />
+      <SavingGoal />
     </div>
   );
 }
