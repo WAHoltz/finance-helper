@@ -23,6 +23,7 @@ export type UserRef = {
   photoUrl: string;
   email: string;
   funMoney: number;
+  savingGoal: number;
 };
 
 export const addExpense = async (formData: Cashflow, userId: string) => {

@@ -1,43 +1,38 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { ProviderValue, UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import { Cashflow, useGetExpenses, useGetUser } from '../hooks/firestore';
+import { useGetExpenses, useGetUser, UserRef } from '../hooks/firestore';
 import { MouseEventHandler, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { getCurrentRemainingBudget } from './FunMoney';
 
-export function getCurrentRemainingBudget(
-  funMoney: number | undefined,
-  expenses: Cashflow[]
-) {
-  let remainingFunMoney = funMoney || 0;
-  const now = Date.now();
-  const currentDate = new Date(now);
-  const currentMonth = currentDate.getMonth();
-
-  expenses
-    .filter((expense) => {
-      const expenseDate = new Date(expense.timestamp);
-      return expenseDate.getMonth() === currentMonth && !expense.required;
-    })
-    .map((expense) => (remainingFunMoney -= expense.amount));
-
-  return Number.parseFloat(remainingFunMoney.toString()).toFixed(2);
-}
-
-export default function FunMoney({ className }: { className?: string }) {
+export default function SavingGoal({ className }: { className?: string }) {
   const { user } = UserAuth() as ProviderValue;
   const { isLoading: isUserLoading, data: userData } = useGetUser(
     user ? user.uid : null
   );
   const { isLoading: isExpensesLoading, data: expensesData } = useGetExpenses();
-  const [funMoney, setFunMoney] = useState(userData?.funMoney || 0);
+  const [savingGoal, setSavingGoal] = useState(userData?.savingGoal || 0);
 
   if (isUserLoading || isExpensesLoading || !user) return;
 
   const userRef = doc(db, 'users', user.uid);
 
+  function getCurrentRemainingSaving(user: UserRef | undefined) {
+    let remainingSavingGoal = user?.savingGoal || 0;
+    const remainingFunMoney = Number(
+      getCurrentRemainingBudget(user?.funMoney, expensesData)
+    );
+
+    if (remainingFunMoney && remainingFunMoney < 0) {
+      remainingSavingGoal += remainingFunMoney;
+    }
+
+    return Number.parseFloat(remainingSavingGoal.toString()).toFixed(2);
+  }
+
   const handleBudgetChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFunMoney(Number(event.target.value));
+    setSavingGoal(Number(event.target.value));
   };
 
   const handleUpdateBudget: MouseEventHandler<HTMLButtonElement> = async (
@@ -46,7 +41,7 @@ export default function FunMoney({ className }: { className?: string }) {
     event.preventDefault();
 
     await updateDoc(userRef, {
-      funMoney,
+      savingGoal,
     });
   };
 
@@ -58,14 +53,14 @@ export default function FunMoney({ className }: { className?: string }) {
       )}
     >
       <h3 className="tw:font-extrabold tw:border-b-2 tw:border-gray-800 tw:w-full tw:text-center">
-        Fun Money for Month
+        Saving Goal for Month
       </h3>
-      <h4 className="tw:font-bold">Total Budget</h4>
-      <p>${userData?.funMoney}</p>
-      <p className="tw:font-bold">Current Budget Left</p>
-      <p>${getCurrentRemainingBudget(userData?.funMoney, expensesData)}</p>
+      <h4 className="tw:font-bold">Saving Goal</h4>
+      <p>${userData?.savingGoal}</p>
+      <p className="tw:font-bold">Actual Savings</p>
+      <p>${getCurrentRemainingSaving(userData)}</p>
       <input
-        placeholder={`$${funMoney?.toString()}`}
+        placeholder={`$${savingGoal?.toString()}`}
         onChange={handleBudgetChange}
         type="number"
         className="tw:text-center tw:m-3 tw:border-2 tw:border-gray-800"
@@ -74,7 +69,7 @@ export default function FunMoney({ className }: { className?: string }) {
         onClick={handleUpdateBudget}
         className="tw:border-black tw:border-x-2 tw:border-t-2 tw:bg-gray-400 tw:px-2 tw:cursor-pointer"
       >
-        Change Budget Amount
+        Change Saving Amount
       </button>
     </div>
   );
