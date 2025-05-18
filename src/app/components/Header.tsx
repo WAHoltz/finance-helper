@@ -6,7 +6,6 @@ export default function Header() {
   const { user, handleSignIn, handleSignOut } = UserAuth() as ProviderValue;
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(user);
   return (
     <header className="bg-gray-900 sm:flex sm:justify-between sm:px-4 sm:py-3 sm:items-center">
       <div className="flex items-center justify-between px-4 py-3 sm:p-0">
