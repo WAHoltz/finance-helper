@@ -43,22 +43,22 @@ export default function TotalExpenses({ className }: { className?: string }) {
   return (
     <div
       className={twMerge(
-        'tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center',
+        'border-gray-800 border-2 bg-gray-500 sm:w-md w-xs flex flex-col items-center',
         className
       )}
     >
-      <h3 className="tw:font-extrabold tw:border-b-2 tw:border-gray-800 tw:w-full tw:text-center">
+      <h3 className="font-extrabold border-b-2 border-gray-800 w-full text-center">
         Total Expenses this Month
       </h3>
-      <div className="tw:grid tw:grid-cols-2 tw:flex-row">
-        <div className="tw:flex tw:flex-col tw:items-center tw:justify-center tw:col-span-1 tw:border-gray-800 tw:border-r-2">
-          <h4 className="tw:font-bold tw:text-nowrap tw:text-sm">
+      <div className="grid grid-cols-2 flex-row">
+        <div className="flex flex-col items-center justify-center col-span-1 border-gray-800 border-r-2 text-center">
+          <h4 className="font-bold overflow-wrap text-sm">
             Required Expenses this Month
           </h4>
           <p>${getTotalRequiredExpenses(expensesData)}</p>
         </div>
-        <div className="tw:flex tw:flex-col tw:items-center tw:justify-center tw:col-span-1 tw:text-sm tw:text-center">
-          <h4 className="tw:font-bold">Non-Required Expenses this Month</h4>
+        <div className="flex flex-col items-center justify-center col-span-1 text-sm text-center">
+          <h4 className="font-bold">Non-Required Expenses this Month</h4>
           <p>${getTotalNonrequiredExpenses(expensesData)}</p>
         </div>
       </div>

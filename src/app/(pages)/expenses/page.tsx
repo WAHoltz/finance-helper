@@ -18,7 +18,7 @@ export default function Expenses() {
     return;
   }
   return (
-    <div className="tw:flex tw:items-center tw:justify-center tw:mt-2 tw:flex-col tw:space-y-3">
+    <div className="flex items-center justify-center mt-2 flex-col space-y-3">
       <AddForm userId={user.uid} type="expenses" />
       <TotalExpenses />
       <ListExpenses />

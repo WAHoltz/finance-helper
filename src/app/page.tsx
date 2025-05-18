@@ -12,7 +12,7 @@ export default function Page() {
   }, [user, router]);
 
   return (
-    <div className="tw:text-white tw:font-bold tw:text-5xl tw:flex tw:justify-center tw:items-center tw:mt-32">
+    <div className="text-white font-bold text-xl sm:text-5xl flex justify-center items-center mt-32">
       An app for tracking your finances!
     </div>
   );

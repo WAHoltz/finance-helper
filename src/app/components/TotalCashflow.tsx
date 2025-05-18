@@ -52,11 +52,11 @@ export default function TotalCashflow({ className }: { className?: string }) {
   return (
     <div
       className={twMerge(
-        'tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center',
+        'border-gray-800 border-2 bg-gray-500 sm:w-md w-xs flex flex-col items-center',
         className
       )}
     >
-      <h3 className="tw:font-extrabold tw:border-b-2 tw:border-gray-800 tw:w-full tw:text-center">
+      <h3 className="font-extrabold border-b-2 border-gray-800 w-full text-center">
         Total Cashflow this Month
       </h3>
       <p>${getTotalCashflow(incomesData, expensesData)}</p>
