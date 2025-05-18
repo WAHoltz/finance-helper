@@ -21,15 +21,15 @@ export default function Income({
   return (
     <div
       className={twMerge(
-        'tw:border-gray-800 tw:border-r-2 tw:border-l-2 tw:bg-gray-500 tw:w-md tw:grid tw:grid-cols-6 tw:gap-1',
+        'border-gray-800 border-r-2 max-sm:border-b-2 border-l-2 bg-gray-500 sm:w-md w-xs grid grid-cols-6 gap-1',
         className
       )}
     >
-      <h3 className="tw:ml-10 tw:font-bold tw:col-span-3">{data?.name}</h3>
-      <p className="tw:col-span-2">${data?.amount}</p>
+      <h3 className="max-sm:ml-10 font-bold col-span-3">{data?.name}</h3>
+      <p className="col-span-2">${data?.amount}</p>
       <button
         onClick={async () => await deleteDoc(doc(collectionRef, incomeId))}
-        className="tw:col-span-1 tw:cursor-pointer"
+        className="col-span-1 cursor-pointer"
       >
         🗑️
       </button>

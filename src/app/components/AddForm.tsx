@@ -73,23 +73,20 @@ export default function AddForm({
   return (
     <div
       className={twMerge(
-        'tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center',
+        'border-gray-800 border-2 bg-gray-500 sm:w-md w-xs flex flex-col items-center',
         className
       )}
     >
-      <h3 className="tw:font-extrabold">
+      <h3 className="font-extrabold w-full max-sm:border-b-2 max-sm:border-gray-800 text-center">
         Add {type === 'expenses' ? 'Expense' : 'Income'}
       </h3>
-      <form
-        onSubmit={handleSubmit}
-        className="tw:flex tw:flex-col tw:items-center"
-      >
-        <div>
-          <label htmlFor="expenseName" className="tw:font-bold">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <div className="max-sm:flex max-sm:flex-col max-sm:items-center">
+          <label htmlFor="expenseName" className="font-bold">
             {type === 'expenses' ? 'Expense' : 'Income'} Name
           </label>
           <input
-            className="tw:ml-8 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
+            className="sm:ml-8 border-2 rounded-md p-1 bg-gray-400"
             type="text"
             name="expenseName"
             placeholder={type === 'expenses' ? 'Expense' : 'Income'}
@@ -97,13 +94,13 @@ export default function AddForm({
             onChange={handleNameChange}
           />
         </div>
-        <div className="tw:mt-2">
-          <label htmlFor="expenseAmount" className="tw:font-bold">
+        <div className="sm:mt-2 max-sm:flex max-sm:flex-col max-sm:items-center">
+          <label htmlFor="expenseAmount" className="font-bold">
             {type === 'expenses' ? 'Expense' : 'Income'}
             Amount
           </label>
           <input
-            className="tw:ml-4 tw:border-2 tw:rounded-md tw:p-1 tw:bg-gray-400"
+            className="sm:ml-4 border-2 rounded-md p-1 bg-gray-400"
             placeholder="0.00"
             type="number"
             name="amount"
@@ -113,11 +110,11 @@ export default function AddForm({
         </div>
         {type === 'expenses' && (
           <div>
-            <label htmlFor="Required?" className="tw:font-bold">
+            <label htmlFor="Required?" className="font-bold">
               Required?
             </label>
             <input
-              className="tw:ml-4"
+              className="ml-4"
               name="Required?"
               type="checkbox"
               checked={required}
@@ -128,7 +125,7 @@ export default function AddForm({
         <button
           type="submit"
           value="Submit"
-          className="tw:border-black tw:border-x-2 tw:border-t-2 tw:mt-2 tw:bg-gray-400 tw:px-2 tw:cursor-pointer"
+          className="border-black border-x-2 border-t-2 mt-2 bg-gray-400 px-2 cursor-pointer hover:bg-gray-500"
         >
           Submit
         </button>

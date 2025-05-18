@@ -48,26 +48,26 @@ export default function SavingGoal({ className }: { className?: string }) {
   return (
     <div
       className={twMerge(
-        'tw:border-gray-800 tw:border-2 tw:bg-gray-500 tw:w-md tw:flex tw:flex-col tw:items-center',
+        'border-gray-800 border-2 bg-gray-500 sm:w-md w-xs flex flex-col items-center',
         className
       )}
     >
-      <h3 className="tw:font-extrabold tw:border-b-2 tw:border-gray-800 tw:w-full tw:text-center">
+      <h3 className="font-extrabold border-b-2 border-gray-800 w-full text-center">
         Saving Goal for Month
       </h3>
-      <h4 className="tw:font-bold">Saving Goal</h4>
+      <h4 className="font-bold">Saving Goal</h4>
       <p>${userData?.savingGoal}</p>
-      <p className="tw:font-bold">Actual Savings</p>
+      <p className="font-bold">Actual Savings</p>
       <p>${getCurrentRemainingSaving(userData)}</p>
       <input
         placeholder={`$${savingGoal?.toString()}`}
         onChange={handleBudgetChange}
         type="number"
-        className="tw:text-center tw:m-3 tw:border-2 tw:border-gray-800"
+        className="text-center m-3 border-2 border-gray-800"
       />
       <button
         onClick={handleUpdateBudget}
-        className="tw:border-black tw:border-x-2 tw:border-t-2 tw:bg-gray-400 tw:px-2 tw:cursor-pointer"
+        className="border-black border-x-2 border-t-2 bg-gray-400 px-2 cursor-pointer hover:bg-gray-500"
       >
         Change Saving Amount
       </button>
